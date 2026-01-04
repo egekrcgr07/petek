@@ -30,7 +30,6 @@ h1 {
     color: #e60073;
 }
 
-/* 🎨 Butonlar */
 button {
     background: #ff4d6d;
     border: none;
@@ -80,14 +79,7 @@ button {
     to { transform: translateY(-200px); opacity: 0; }
 }
 
-/* Küçük YouTube video */
-#video {
-    display: none;
-    margin-top: 15px;
-    border-radius: 15px;
-}
-
-/* 💖 Kalp şeklinde fotoğraf */
+/* Fotoğraf kalp şekli */
 .kalp-foto {
     width: 180px;
     height: 160px;
@@ -130,7 +122,7 @@ button {
 <div class="kutu">
     <h1>Petek ❤️</h1>
 
-    <!-- 💖 Kalp şeklinde fotoğraf -->
+    <!-- Kalp şeklinde fotoğraf -->
     <div class="kalp-foto">
         <img src="https://i.postimg.cc/hPk6LXKy/IMG-6952.png" alt="Petek">
     </div>
@@ -139,56 +131,37 @@ button {
     <button onclick="sev()">Seni Seviyorum</button>
     <div id="mesaj">SENİ ÇOK ÇOK ÇOK SEVİYORUM AŞKIM 💖</div>
 
-    <!-- Küçük YouTube video ve müzik -->
-    <button onclick="muzik()">🎶 Müziği Aç</button>
-    <iframe id="video" width="260" height="140"
-        src="https://www.youtube.com/embed/5isV_2kPNeo"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen>
-    </iframe>
+    <!-- SPOTIFY link -->
+    <button onclick="spotifyAc()">🎵 Spotify’da Aç</button>
 </div>
 
 <script>
-let muzikAcildi = false;
-
-// Büyük mesaj
 function sev() {
     document.getElementById("mesaj").style.display = "block";
 }
 
-// Müzik ve efektler
-function muzik() {
-    if(muzikAcildi) return;
-    muzikAcildi = true;
-    document.getElementById("video").style.display = "block";
+// Spotify tuşu
+function spotifyAc() {
+    window.open("https://open.spotify.com/track/66y3M8tq4Z68Icj5AUxGXT", "_blank");
+    // efektler başlasın
+    setInterval(() => {
+        const k = document.createElement("div");
+        k.className = "kalp";
+        k.innerHTML = "💖";
+        k.style.left = Math.random() * 100 + "vw";
+        document.body.appendChild(k);
+        setTimeout(() => k.remove(), 5000);
+    }, 400);
 
-    // Kalpler hızlansın
-    hiz = 300;
-
-    // Uçan yazılar başlasın
-    setInterval(yaziOlustur, 600);
-}
-
-// Kalpler
-let hiz = 700;
-setInterval(() => {
-    const k = document.createElement("div");
-    k.className = "kalp";
-    k.innerHTML = "💖";
-    k.style.left = Math.random() * 100 + "vw";
-    document.body.appendChild(k);
-    setTimeout(() => k.remove(), 5000);
-}, hiz);
-
-// Uçan yazılar
-function yaziOlustur() {
-    const y = document.createElement("div");
-    y.className = "yazi";
-    y.innerHTML = "Seni seviyorum 💕";
-    y.style.left = Math.random() * 70 + "vw";
-    y.style.bottom = "0";
-    document.body.appendChild(y);
-    setTimeout(() => y.remove(), 4000);
+    setInterval(() => {
+        const y = document.createElement("div");
+        y.className = "yazi";
+        y.innerHTML = "Seni seviyorum 💕";
+        y.style.left = Math.random() * 70 + "vw";
+        y.style.bottom = "0";
+        document.body.appendChild(y);
+        setTimeout(() => y.remove(), 4000);
+    }, 600);
 }
 </script>
 
