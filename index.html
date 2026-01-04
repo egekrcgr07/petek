@@ -22,24 +22,15 @@ body {
     border-radius: 25px;
     text-align: center;
     box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+    width: 340px;
     z-index: 2;
-    width: 320px;
 }
 
 h1 {
     color: #e60073;
-    font-size: 34px;
 }
 
-.foto {
-    width: 170px;
-    height: 170px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 4px solid #ff4d6d;
-    margin-bottom: 10px;
-}
-
+/* 🎨 Butonlar */
 button {
     background: #ff4d6d;
     border: none;
@@ -51,12 +42,12 @@ button {
     margin-top: 10px;
 }
 
+/* Büyük mesaj */
 #mesaj {
-    margin-top: 15px;
-    font-size: 34px;
+    display: none;
+    font-size: 30px;
     color: #e60073;
     font-weight: bold;
-    display: none;
     animation: buyu 1s infinite alternate;
 }
 
@@ -65,20 +56,19 @@ button {
     to { transform: scale(1.1); }
 }
 
-/* 💖 Kalpler */
+/* Kalpler */
 .kalp {
     position: absolute;
     bottom: -20px;
     font-size: 26px;
-    animation: ucalim linear infinite;
+    animation: ucalim 5s linear infinite;
 }
 
 @keyframes ucalim {
-    from { transform: translateY(0); opacity: 1; }
     to { transform: translateY(-110vh); opacity: 0; }
 }
 
-/* 💕 Seni seviyorum yazıları */
+/* Uçan yazılar */
 .yazi {
     position: absolute;
     font-size: 22px;
@@ -87,15 +77,50 @@ button {
 }
 
 @keyframes ucyazi {
-    from { opacity: 1; transform: translateY(0); }
-    to { opacity: 0; transform: translateY(-200px); }
+    to { transform: translateY(-200px); opacity: 0; }
 }
 
-/* 🎬 Küçük video */
+/* Küçük YouTube video */
 #video {
     display: none;
     margin-top: 15px;
     border-radius: 15px;
+}
+
+/* 💖 Kalp şeklinde fotoğraf */
+.kalp-foto {
+    width: 180px;
+    height: 160px;
+    position: relative;
+    margin: 15px auto;
+    transform: rotate(-45deg);
+}
+
+.kalp-foto img {
+    width: 180px;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 20px;
+}
+
+.kalp-foto::before,
+.kalp-foto::after {
+    content: "";
+    width: 180px;
+    height: 160px;
+    background: inherit;
+    position: absolute;
+    border-radius: 50%;
+    top: 0;
+    left: 0;
+}
+
+.kalp-foto::before {
+    top: -80px;
+}
+
+.kalp-foto::after {
+    left: 80px;
 }
 </style>
 </head>
@@ -105,65 +130,65 @@ button {
 <div class="kutu">
     <h1>Petek ❤️</h1>
 
-    <!-- Fotoğraf linkliyse -->
-    <img src="https://i.postimg.cc/hPk6LXKy/IMG-6952.png" class="foto">
+    <!-- 💖 Kalp şeklinde fotoğraf -->
+    <div class="kalp-foto">
+        <img src="https://i.postimg.cc/hPk6LXKy/IMG-6952.png" alt="Petek">
+    </div>
 
-    <button onclick="mesajiGoster()">Seni Seviyorum</button>
+    <!-- Büyük mesaj -->
+    <button onclick="sev()">Seni Seviyorum</button>
     <div id="mesaj">SENİ ÇOK ÇOK ÇOK SEVİYORUM AŞKIM 💖</div>
 
-    <button onclick="muzikBaslat()">🎶 Müziği Aç</button>
-
-    <!-- Küçük YouTube Video -->
-    <iframe id="video" width="260" height="150"
-        src="https://youtu.be/5isV_2kPNeo?si=yUmphSPStVgcdkyf"
-        frameborder="0"
-        allow="autoplay; encrypted-media">
+    <!-- Küçük YouTube video ve müzik -->
+    <button onclick="muzik()">🎶 Müziği Aç</button>
+    <iframe id="video" width="260" height="140"
+        src="https://www.youtube.com/embed/5isV_2kPNeo"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen>
     </iframe>
 </div>
 
 <script>
-let hiz = 700;
 let muzikAcildi = false;
 
-function mesajiGoster() {
+// Büyük mesaj
+function sev() {
     document.getElementById("mesaj").style.display = "block";
 }
 
-function muzikBaslat() {
-    if (muzikAcildi) return;
+// Müzik ve efektler
+function muzik() {
+    if(muzikAcildi) return;
     muzikAcildi = true;
-
     document.getElementById("video").style.display = "block";
 
     // Kalpler hızlansın
     hiz = 300;
 
-    // Seni seviyorum yazıları başlasın
+    // Uçan yazılar başlasın
     setInterval(yaziOlustur, 600);
 }
 
 // Kalpler
+let hiz = 700;
 setInterval(() => {
-    const kalp = document.createElement("div");
-    kalp.className = "kalp";
-    kalp.innerHTML = "💖";
-    kalp.style.left = Math.random() * 100 + "vw";
-    kalp.style.animationDuration = (4 + Math.random() * 2) + "s";
-    document.body.appendChild(kalp);
-
-    setTimeout(() => kalp.remove(), 6000);
+    const k = document.createElement("div");
+    k.className = "kalp";
+    k.innerHTML = "💖";
+    k.style.left = Math.random() * 100 + "vw";
+    document.body.appendChild(k);
+    setTimeout(() => k.remove(), 5000);
 }, hiz);
 
-// Yazılar
+// Uçan yazılar
 function yaziOlustur() {
-    const yazi = document.createElement("div");
-    yazi.className = "yazi";
-    yazi.innerHTML = "Seni seviyorum 💕";
-    yazi.style.left = Math.random() * 70 + "vw";
-    yazi.style.bottom = "0px";
-    document.body.appendChild(yazi);
-
-    setTimeout(() => yazi.remove(), 4000);
+    const y = document.createElement("div");
+    y.className = "yazi";
+    y.innerHTML = "Seni seviyorum 💕";
+    y.style.left = Math.random() * 70 + "vw";
+    y.style.bottom = "0";
+    document.body.appendChild(y);
+    setTimeout(() => y.remove(), 4000);
 }
 </script>
 
