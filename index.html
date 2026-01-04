@@ -26,9 +26,7 @@ body {
     z-index: 2;
 }
 
-h1 {
-    color: #e60073;
-}
+h1 { color: #e60073; }
 
 button {
     background: #ff4d6d;
@@ -79,7 +77,7 @@ button {
     to { transform: translateY(-200px); opacity: 0; }
 }
 
-/* Fotoğraf kalp şekli */
+/* Kalp şeklinde fotoğraf */
 .kalp-foto {
     width: 180px;
     height: 160px;
@@ -107,12 +105,14 @@ button {
     left: 0;
 }
 
-.kalp-foto::before {
-    top: -80px;
-}
+.kalp-foto::before { top: -80px; }
+.kalp-foto::after { left: 80px; }
 
-.kalp-foto::after {
-    left: 80px;
+/* Küçük video */
+#video {
+    display: none;
+    margin-top: 15px;
+    border-radius: 15px;
 }
 </style>
 </head>
@@ -131,8 +131,14 @@ button {
     <button onclick="sev()">Seni Seviyorum</button>
     <div id="mesaj">SENİ ÇOK ÇOK ÇOK SEVİYORUM AŞKIM 💖</div>
 
-    <!-- SPOTIFY link -->
-    <button onclick="spotifyAc()">🎵 Spotify’da Aç</button>
+    <!-- YouTube küçük pencere -->
+    <button onclick="muzik()">🎶 Müziği Aç</button>
+    <iframe id="video" width="260" height="140"
+        src="https://www.youtube.com/embed/5isV_2kPNeo?autoplay=1"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen>
+    </iframe>
 </div>
 
 <script>
@@ -140,10 +146,16 @@ function sev() {
     document.getElementById("mesaj").style.display = "block";
 }
 
-// Spotify tuşu
-function spotifyAc() {
-    window.open("https://open.spotify.com/track/66y3M8tq4Z68Icj5AUxGXT", "_blank");
-    // efektler başlasın
+let muzikAcildi = false;
+
+function muzik() {
+    if(muzikAcildi) return;
+    muzikAcildi = true;
+
+    // Video görünür
+    document.getElementById("video").style.display = "block";
+
+    // Kalpler
     setInterval(() => {
         const k = document.createElement("div");
         k.className = "kalp";
@@ -153,6 +165,7 @@ function spotifyAc() {
         setTimeout(() => k.remove(), 5000);
     }, 400);
 
+    // Uçan yazılar
     setInterval(() => {
         const y = document.createElement("div");
         y.className = "yazi";
@@ -160,10 +173,4 @@ function spotifyAc() {
         y.style.left = Math.random() * 70 + "vw";
         y.style.bottom = "0";
         document.body.appendChild(y);
-        setTimeout(() => y.remove(), 4000);
-    }, 600);
-}
-</script>
-
-</body>
-</html>
+        setTimeout(() =
